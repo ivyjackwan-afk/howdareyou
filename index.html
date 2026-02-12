@@ -33,6 +33,7 @@ button {
     cursor: pointer;
     background-color: #ff4d6d;
     color: white;
+    position: relative;
 }
 
 button:hover {
@@ -51,44 +52,6 @@ button:hover {
     0% { transform: translateY(0); opacity: 1; }
     100% { transform: translateY(-800px); opacity: 0; }
 }
-
-/* Explosion hearts */
-.explosion {
-    position: fixed;
-    font-size: 25px;
-    animation: explode 1s ease-out forwards;
-}
-
-@keyframes explode {
-    from { transform: scale(0); opacity: 1; }
-    to { transform: scale(2) translateY(-100px); opacity: 0; }
-}
-
-/* Pop-up overlay */
-#popupOverlay {
-    display: none;
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 1000;
-}
-
-#popupBox {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    text-align: center;
-}
-
-#popupBox button {
-    margin-top: 20px;
-    background-color: #ff4d6d;
-    color: white;
-}
 </style>
 </head>
 <body>
@@ -106,23 +69,19 @@ button:hover {
     <p>And when you hear it, it might shock you 😳</p>
     <p>Are you ready to read it?</p>
 
+    <button id="readyBtn">I’m Ready ❤️</button><br>
     <button id="notReadyBtn">Not Ready</button>
 </div>
 
-<!-- Pop-up for Not Ready -->
-<div id="popupOverlay">
-    <div id="popupBox">
-        <p>OK! You can press "I'm Ready" here! 😘</p>
-        <button id="popupReadyBtn">I'm Ready ❤️</button>
-    </div>
-</div>
-
-<!-- PAGE 3: Meme gallery -->
+<!-- PAGE 3: Canva envelope card -->
 <div class="page" id="page3">
-    <h1>Before my secret… enjoy some memes! 😆</h1>
-    <img id="memeImg" src="https://i.imgflip.com/6n1b8v.jpg" alt="funny meme" style="max-width:80%; border-radius:10px; margin:20px auto; display:block;">
-    <br>
-    <button onclick="heartExplosion()">I’ve seen it! 💖</button>
+    <h1>Your Valentine Card ❤️</h1>
+    <div style="position: relative; width: 100%; height: 0; padding-top: 83.8298%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">
+        <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+        src="https://www.canva.com/design/DAHBE9_Xz8k/1msRv7AcKyeBhdNs2hc2vg/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe>
+    </div>
+    <a href="https://www.canva.com/design/DAHBE9_Xz8k/1msRv7AcKyeBhdNs2hc2vg/view?utm_content=DAHBE9_Xz8k&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noopener">Open in Canva</a>
+    <p>Click anywhere on the card to see my secret 💖</p>
 </div>
 
 <!-- PAGE 4: Final Secret -->
@@ -152,49 +111,41 @@ function nextPage(pageNumber) {
     }
 }
 
-// PAGE 2 - Not Ready popup
+// PAGE 2 - Ready / Not Ready fun
+let readyClicks = 0;
+const readyBtn = document.getElementById("readyBtn");
 const notReadyBtn = document.getElementById("notReadyBtn");
-const popupOverlay = document.getElementById("popupOverlay");
-const popupReadyBtn = document.getElementById("popupReadyBtn");
+
+// Ready button
+readyBtn.addEventListener("click", function(){
+    readyClicks++;
+    if(readyClicks === 1){
+        alert("Too light! Click again 😜");
+    } else if(readyClicks === 2){
+        alert("Almost there! Click again 💖");
+    } else if(readyClicks === 3){
+        nextPage(3);
+    }
+});
+
+// Not Ready button: move randomly but still clickable
+notReadyBtn.addEventListener("mouseenter", function(){
+    let x = Math.random() * 70 + 10; // 10% - 80%
+    let y = Math.random() * 50 + 30; // 30% - 80%
+    this.style.position = "absolute";
+    this.style.left = x + "vw";
+    this.style.top = y + "vh";
+});
 
 notReadyBtn.addEventListener("click", function(){
-    popupOverlay.style.display = "block";
+    alert("Okay! You can press 'I'm Ready' ❤️");
 });
 
-popupReadyBtn.addEventListener("click", function(){
-    popupOverlay.style.display = "none";
-    nextPage(3);
+// PAGE 3 - Click anywhere on iframe or link → next page
+const page3 = document.getElementById("page3");
+page3.addEventListener("click", function(){
+    nextPage(4);
 });
-
-// Meme gallery
-const memes = [
-    "https://i.imgflip.com/6n1b8v.jpg",
-    "https://i.imgflip.com/6n1c0v.jpg",
-    "https://i.imgflip.com/6n1c4k.jpg",
-    "https://i.imgflip.com/6n1c8d.jpg"
-];
-let memeIndex = 0;
-
-document.getElementById("memeImg").addEventListener("click", function(){
-    memeIndex++;
-    if(memeIndex >= memes.length) memeIndex = 0;
-    this.src = memes[memeIndex];
-});
-
-// Heart explosion on button click
-function heartExplosion() {
-    for(let i=0;i<15;i++){
-        const heart = document.createElement("div");
-        heart.classList.add("explosion");
-        heart.innerHTML = "❤️";
-        heart.style.left = (window.innerWidth/2 + (Math.random()*200-100)) + "px";
-        heart.style.top = (window.innerHeight/2) + "px";
-        document.body.appendChild(heart);
-
-        setTimeout(()=>{ heart.remove(); },1000);
-    }
-    setTimeout(()=>{ nextPage(4); },1000);
-}
 
 // Floating hearts for final page
 function startHearts() {

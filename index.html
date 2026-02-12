@@ -1,10 +1,180 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hello ❤️</title>
+<meta charset="UTF-8">
+<title>For My Husband ❤️</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to right, #ffdde1, #ee9ca7);
+    padding: 50px;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* Fade effect */
+.page {
+    display: none;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+button {
+    padding: 12px 25px;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #ff4d6d;
+    color: white;
+}
+
+button:hover {
+    background-color: #ff1e4d;
+}
+
+/* Floating hearts */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp 5s linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-800px); opacity: 0; }
+}
+
+/* Explosion hearts */
+.explosion {
+    position: fixed;
+    font-size: 25px;
+    animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+    from { transform: scale(0); opacity: 1; }
+    to { transform: scale(2) translateY(-100px); opacity: 0; }
+}
+</style>
 </head>
+
 <body>
-    <h1>Hi My Love 💕</h1>
-    <p>Happy Valentine's Day!</p>
+
+<!-- PAGE 1 -->
+<div class="page" id="page1" style="display:block;">
+    <h1>How much do you love me? ❤️</h1>
+    <button onclick="nextPage(2)">More than all the stars in the sky combined ✨</button><br>
+    <button onclick="nextPage(2)">More than all the sand and dust in the world combined 🌊</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+    <h1>I actually have a secret to tell you...</h1>
+    <p>And when you hear it, it might shock you 😳</p>
+    <p>Are you ready to read it?</p>
+
+    <button onclick="nextPage(3)">I'm ready ❤️</button><br>
+    <button id="runawayBtn">Not ready</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+    <h1>Before you know the secret… watch this first 💕</h1>
+
+    <div style="position: relative; width: 100%; max-width: 500px; margin: auto; height: 0; padding-top: 177.7778%;
+     box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 1em; overflow: hidden;
+     border-radius: 15px;">
+
+     <iframe loading="lazy"
+      style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none;"
+      src="https://www.canva.com/design/DAHBEgvgJ9o/20pna795s6992PWmWNhGUg/watch?embed"
+      allowfullscreen>
+     </iframe>
+    </div>
+
+    <br>
+    <button onclick="heartExplosion()">I watched it 💖</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="page4">
+    <h1>My secret is…</h1>
+    <p style="max-width:600px; margin:auto; font-size:18px; line-height:1.6;">
+        From the day you walked into my life,  
+        every day has felt more meaningful.  
+        You are my comfort,  
+        my happiness,  
+        and the safest place my heart has ever known ❤️  
+        <br><br>
+        No matter what happens in this world,  
+        I will always choose you — every single day.  
+        <br><br>
+        Happy Valentine's Day, my forever love 💕
+    </p>
+</div>
+
+<script>
+function nextPage(pageNumber) {
+    let pages = document.getElementsByClassName("page");
+    for (let i = 0; i < pages.length; i++) {
+        pages[i].style.display = "none";
+    }
+    document.getElementById("page" + pageNumber).style.display = "block";
+
+    if(pageNumber === 4){
+        startHearts();
+    }
+}
+
+/* Runaway button */
+const btn = document.getElementById("runawayBtn");
+btn.addEventListener("mouseover", function() {
+    const x = Math.random() * (window.innerWidth - 150);
+    const y = Math.random() * (window.innerHeight - 100);
+    btn.style.position = "absolute";
+    btn.style.left = x + "px";
+    btn.style.top = y + "px";
+});
+
+/* Heart explosion */
+function heartExplosion() {
+    for(let i=0;i<15;i++){
+        const heart = document.createElement("div");
+        heart.classList.add("explosion");
+        heart.innerHTML = "❤️";
+        heart.style.left = (window.innerWidth/2 + (Math.random()*200-100)) + "px";
+        heart.style.top = (window.innerHeight/2) + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(()=>{ heart.remove(); },1000);
+    }
+    setTimeout(()=>{ nextPage(4); },1000);
+}
+
+/* Floating hearts */
+function startHearts() {
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => { heart.remove(); }, 5000);
+    }, 300);
+}
+</script>
+
 </body>
 </html>

@@ -14,7 +14,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Fade effect */
 .page {
     display: none;
     animation: fadeIn 1s ease-in-out;
@@ -66,7 +65,6 @@ button:hover {
 }
 </style>
 </head>
-
 <body>
 
 <!-- PAGE 1 -->
@@ -86,47 +84,28 @@ button:hover {
     <button id="runawayBtn">Not ready</button>
 </div>
 
-<!-- PAGE 3 -->
+<!-- PAGE 3: Meme gallery -->
 <div class="page" id="page3">
-    <h1>Before you know the secret… watch this first 💕</h1>
-
-    <div style="position: relative; width: 100%; max-width: 500px; margin: auto; height: 0; padding-top: 177.7778%;
-     box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 1em; overflow: hidden;
-     border-radius: 15px;">
-
-     <iframe loading="lazy"
-      style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none;"
-      src="https://www.canva.com/design/DAHBEgvgJ9o/20pna795s6992PWmWNhGUg/watch?embed"
-      allowfullscreen>
-     </iframe>
-    </div>
-
+    <h1>Before my secret… enjoy some memes! 😆</h1>
+    <img id="memeImg" src="https://i.imgflip.com/6n1b8v.jpg" alt="funny meme" style="max-width:80%; border-radius:10px; margin:20px auto; display:block;">
     <br>
-    <button onclick="heartExplosion()">I watched it 💖</button>
+    <button onclick="heartExplosion()">I’ve seen it! 💖</button>
 </div>
 
-<!-- PAGE 4 -->
+<!-- PAGE 4: Final Secret -->
 <div class="page" id="page4">
-    <h1>My secret is…</h1>
+    <h1>My secret is… ❤️</h1>
     <p style="max-width:600px; margin:auto; font-size:18px; line-height:1.6;">
-        From the day you walked into my life,  
-        every day has felt more meaningful.  
-        You are my comfort,  
-        my happiness,  
-        and the safest place my heart has ever known ❤️  
-        <br><br>
-        No matter what happens in this world,  
-        I will always choose you — every single day.  
-        <br><br>
-        Happy Valentine's Day, my forever love 💕
+        Thank you for choosing me to be your forever Valentine.  
+        I’m so grateful for your hard work for our family and for always giving in to my whims.  
+        Sorry for the times I was difficult or mean; I’ll do better and be the wife you deserve.  
+        I see how tired you are and I know it's all for us.  
+        We’ll get through anything together.  
+        Love you to the moon and back! 🌙💖
     </p>
-
-    <br>
-    <button onclick="foreverMessage()">Yes, forever 💍</button>
 </div>
 
 <script>
-
 function nextPage(pageNumber) {
     let pages = document.getElementsByClassName("page");
     for (let i = 0; i < pages.length; i++) {
@@ -149,7 +128,22 @@ btn.addEventListener("mouseover", function() {
     btn.style.top = y + "px";
 });
 
-/* Heart explosion */
+/* Meme gallery */
+const memes = [
+    "https://i.imgflip.com/6n1b8v.jpg",
+    "https://i.imgflip.com/6n1c0v.jpg",
+    "https://i.imgflip.com/6n1c4k.jpg",
+    "https://i.imgflip.com/6n1c8d.jpg"
+];
+let memeIndex = 0;
+
+document.getElementById("memeImg").addEventListener("click", function(){
+    memeIndex++;
+    if(memeIndex >= memes.length) memeIndex = 0;
+    this.src = memes[memeIndex];
+});
+
+/* Heart explosion on button click */
 function heartExplosion() {
     for(let i=0;i<15;i++){
         const heart = document.createElement("div");
@@ -164,7 +158,7 @@ function heartExplosion() {
     setTimeout(()=>{ nextPage(4); },1000);
 }
 
-/* Floating hearts */
+/* Floating hearts for final page */
 function startHearts() {
     setInterval(() => {
         const heart = document.createElement("div");
@@ -178,12 +172,6 @@ function startHearts() {
         setTimeout(() => { heart.remove(); }, 5000);
     }, 300);
 }
-
-/* Forever message */
-function foreverMessage() {
-    alert("You're stuck with me forever 😘❤️");
-}
-
 </script>
 
 </body>

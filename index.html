@@ -35,10 +35,16 @@ button {
     background-color: #ff4d6d;
     color: white;
     position: relative;
+    transition: transform 0.2s;
 }
 
 button:hover {
     background-color: #ff1e4d;
+}
+
+/* Hover bounce effect for Open Card button */
+#openCardBtn:hover {
+    transform: scale(1.1);
 }
 
 /* Floating hearts */
@@ -122,11 +128,15 @@ button:hover {
 <!-- PAGE 3: Canva envelope card -->
 <div class="page" id="page3">
     <h1>Your Valentine Card ❤️</h1>
-    <div id="cardContainer" style="position: relative; width: 100%; height: 0; padding-top: 83.8298%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">
-        <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
-        src="https://www.canva.com/design/DAHBE9_Xz8k/1msRv7AcKyeBhdNs2hc2vg/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe>
+
+    <!-- envelope card smaller -->
+    <div style="position: relative; width: 80%; max-width:400px; margin:auto; height:0; padding-top:83.8298%; overflow:hidden; border-radius:8px; box-shadow:0 2px 8px rgba(63,69,81,0.16);">
+        <iframe loading="lazy" style="position:absolute; width:100%; height:100%; top:0; left:0; border:none;"
+        src="https://www.canva.com/design/DAHBE9_Xz8k/1msRv7AcKyeBhdNs2hc2vg/view?embed" allowfullscreen></iframe>
     </div>
-    <p>Click on the card to see my secret 💖</p>
+
+    <p style="margin-top:15px;">Click the button below to open your card 💌</p>
+    <button id="openCardBtn">Open Card 💖</button>
 </div>
 
 <!-- PAGE 4: Final Secret -->
@@ -195,9 +205,9 @@ notReadyBtn.addEventListener("click", function(){
     alert("Okay! You can press 'I'm Ready' ❤️");
 });
 
-// PAGE 3 - Click anywhere on card container → next page
-const cardContainer = document.getElementById("cardContainer");
-cardContainer.addEventListener("click", function(){
+// PAGE 3 - Button Open Card → next page
+const openCardBtn = document.getElementById("openCardBtn");
+openCardBtn.addEventListener("click", function(){
     nextPage(4);
 });
 

@@ -120,9 +120,13 @@ button:hover {
         <br><br>
         Happy Valentine's Day, my forever love 💕
     </p>
+
+    <br>
+    <button onclick="foreverMessage()">Yes, forever 💍</button>
 </div>
 
 <script>
+
 function nextPage(pageNumber) {
     let pages = document.getElementsByClassName("page");
     for (let i = 0; i < pages.length; i++) {
@@ -174,6 +178,12 @@ function startHearts() {
         setTimeout(() => { heart.remove(); }, 5000);
     }, 300);
 }
+
+/* Forever message */
+function foreverMessage() {
+    alert("You're stuck with me forever 😘❤️");
+}
+
 </script>
 
 </body>
